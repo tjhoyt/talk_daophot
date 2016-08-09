@@ -111,6 +111,7 @@ C     COMMON /ERROR/ PHPADU, RONOIS, PERR, PKERR
 C
       DATA NTAB / 0, 1, 3, 6, 10 /
 C
+      logical exist
 C-----------------------------------------------------------------------
 C
 C SECTION 1
@@ -361,6 +362,11 @@ C
      .        MX-LX+1, MY-LY+1, NCOL)
          WRITE (6,622) ID(ISTAR), XCEN(ISTAR), YCEN(ISTAR),
      .        APMAG(ISTAR), SKY(ISTAR), NINT(FMAX)
+         OPEN (unit=123, file='coords.tmp', action='write') 
+         WRITE (123, 5) XCEN(ISTAR), YCEN(ISTAR)
+    5    FORMAT (2F9.2, F9.3)
+         CLOSE(123)
+
   622    FORMAT (I7, 2F9.2, F9.3, F9.1, 4X, 'Brightest pixel:', I7)
       END IF
 C
@@ -582,6 +588,20 @@ C
                WRITE (LINE(J:J+16),69) ID(ISTAR), 
      .              HJNK(ISTAR), FLAG(ISTAR)
    69          FORMAT (I7, F7.3, 1X, A1, 1X)
+C               implicit none
+C               logical :: exist
+C               inquire (file=PSFFIL//".iter", exist=exist)
+               inquire (file="psf_list.tmp", exist=exist)
+               if (exist) then
+                  open(12, file="psf_list.tmp", status="old",
+     & position="append", action="write")
+               else
+                  open(12, file="psf_list.tmp", status="new"
+     &, action="write")
+               end if
+               write(12, 4) ID(ISTAR)
+    4          format (I7)
+               close(12)
             END IF
          END DO
          WRITE (6,6) LINE(1:85)
