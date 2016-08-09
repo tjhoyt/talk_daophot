@@ -588,8 +588,7 @@ C
                WRITE (LINE(J:J+16),69) ID(ISTAR), 
      .              HJNK(ISTAR), FLAG(ISTAR)
    69          FORMAT (I7, F7.3, 1X, A1, 1X)
-C               implicit none
-C               logical :: exist
+C credit to Bálint Aradi for his answer at http://stackoverflow.com/questions/15526203/single-command-to-open-a-file-or-create-it-and-the-append-data
 C               inquire (file=PSFFIL//".iter", exist=exist)
                inquire (file="psf_list.tmp", exist=exist)
                if (exist) then

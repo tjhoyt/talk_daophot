@@ -29,7 +29,7 @@ for n in nums:
             final.append(r)
 filename, file_ext = os.path.splitext(f[1])
 ofile = filename + '.iter'
-np.savetxt(ofile, final,fmt=['%8.0f'] + [ '%8.3f' for x in np.arange(len(r)-1) ] )
+np.savetxt(ofile, final,fmt=['%7.0f'] + [ '%8.3f' for x in np.arange(len(r)-1) ] )
 with open(ofile, 'r+') as fi:
     content = fi.read()
     fi.seek(0, 0)
