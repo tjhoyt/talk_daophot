@@ -1,0 +1,4 @@
+# ipynb won't be updated
+*.ipynb
+# ignore weird .ds_store thing
+.DS_Store
